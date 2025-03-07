@@ -14,16 +14,28 @@ const columnDefs: ColDef[] = [
   { field: "period_yr", headerName: "Period (yr)" },
   { field: "i_deg", headerName: "Inclination (deg)" },
   { field: "pha", headerName: "Potentially Hazardous" },
-  { field: "orbit_class", headerName: "Orbit Class", enableRowGroup: true, },
+  { field: "orbit_class", headerName: "Orbit Class", enableRowGroup: true },
 ];
 
 const NeoGrid = (): JSX.Element => {
   return (
     <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
+      <p
+        style={{
+          width: "100vw",
+          textAlign: "center",
+          position: "sticky",
+          zIndex: 10,
+          left: 0,
+          top: "auto",
+        }}
+      >
+        Near-Earth Object Overview
+      </p>
       <AgGridReact
         rowData={data}
         columnDefs={columnDefs}
-        rowGroupPanelShow={'always'}
+        rowGroupPanelShow={"always"}
       />
     </div>
   );
