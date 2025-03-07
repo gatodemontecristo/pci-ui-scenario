@@ -27,8 +27,8 @@ const fnComparatorPha = (
   nodeB: IRowNode<any>,
   isDescending: boolean
 ) => {
-  if (valueA === "n/a") return isDescending ? -1 : 1;
-  if (valueB === "n/a") return isDescending ? 1 : -1;
+  if (valueA === "") return isDescending ? -1 : 1;
+  if (valueB === "") return isDescending ? 1 : -1;
 
   return valueA.localeCompare(valueB, undefined, { sensitivity: "base" });
 };
@@ -113,6 +113,16 @@ const columnDefs: ColDef[] = [
     sortable: true,
     comparator: fnComparatorPha,
     filter: "agTextColumnFilte",
+    valueGetter: (phaValue) => {
+      switch (phaValue.data.pha) {
+        case "Y":
+          return "Yes";
+        case "N":
+          return "No";
+        default:
+          return "";
+      }
+    },
   },
   {
     field: "orbit_class",
