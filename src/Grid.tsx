@@ -3,6 +3,7 @@ import { ColDef, IRowNode } from "ag-grid-community";
 import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { useRef } from "react";
 
 const fnComparator = (
   valueA: string | undefined,
@@ -133,9 +134,18 @@ const columnDefs: ColDef[] = [
 ];
 
 const NeoGrid = (): JSX.Element => {
+  const gridRef = useRef<AgGridReact>(null);
+
+  const resetAll = () => {
+    if (gridRef.current) {
+      const api = gridRef.current.api;
+      api.setFilterModel(null);
+      api.resetColumnState();
+    }
+  };
   return (
     <div className="ag-theme-alpine" style={{ height: 900, width: 2000 }}>
-      <p
+      <div
         style={{
           width: "100vw",
           textAlign: "center",
@@ -143,11 +153,17 @@ const NeoGrid = (): JSX.Element => {
           zIndex: 10,
           left: 0,
           top: "auto",
+          display: "flex",
+          gap: "15px",
+          justifyContent: "center",
+          margin: "10px",
         }}
       >
-        Near-Earth Object Overview
-      </p>
+        <p>Near-Earth Object Overview</p>
+        <button onClick={resetAll}>Clear Filters and Sorters</button>
+      </div>
       <AgGridReact
+        ref={gridRef}
         rowData={data}
         columnDefs={columnDefs}
         rowGroupPanelShow={"always"}
