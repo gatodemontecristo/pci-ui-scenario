@@ -32,6 +32,17 @@ const fnComparatorPha = (
 
   return valueA.localeCompare(valueB, undefined, { sensitivity: "base" });
 };
+const fnComparatorDate = (
+  valueA: string,
+  valueB: string,
+  nodeA: IRowNode<any>,
+  nodeB: IRowNode<any>,
+  isDescending: boolean
+) => {
+  if (!valueA) return 1;
+  if (!valueB) return -1;
+  return new Date(valueA).getTime() - new Date(valueB).getTime();
+};
 const columnDefs: ColDef[] = [
   {
     field: "designation",
@@ -43,7 +54,16 @@ const columnDefs: ColDef[] = [
     field: "discovery_date",
     headerName: "Discovery Date",
     sortable: true,
-    filter: "agTextColumnFilter",
+    filter: "agDateColumnFilter",
+    comparator: fnComparatorDate,
+    valueFormatter: (dateValue) => {
+      if (!dateValue.value) return "";
+      const date = new Date(dateValue.value);
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const day = date.getDate().toString().padStart(2, "0");
+      const year = date.getFullYear();
+      return `${month}/${day}/${year}`;
+    },
   },
   {
     field: "h_mag",
