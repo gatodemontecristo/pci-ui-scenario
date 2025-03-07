@@ -151,7 +151,13 @@ const NeoGrid = (): JSX.Element => {
         rowData={data}
         columnDefs={columnDefs}
         rowGroupPanelShow={"always"}
+        // cellSelection={true}
+        // copyHeadersToClipboard={true}
+        // eslint-disable-next-line react/jsx-no-comment-textnodes
       />
+      /** Is not posible use the clipboard funcionality becaouse is exclusive
+      for the enterprise version
+      https://www.ag-grid.com/react-data-grid/clipboard/ */
     </div>
   );
 };
