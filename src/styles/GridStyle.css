@@ -1,0 +1,17 @@
+.container-grid {
+  height: 900px;
+  width: 2000px;
+}
+
+.title-grid {
+  width: 100vw;
+  text-align: center;
+  position: sticky;
+  z-index: 10;
+  left: 0;
+  top: "auto";
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 10px;
+}
